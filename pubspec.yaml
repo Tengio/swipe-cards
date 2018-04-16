@@ -1,0 +1,17 @@
+name: swipe_card
+description: Swipe card component for flutter.
+version: 0.1.0
+author: Quentin Le Guennec <quentin@tengio.com>
+homepage: https://github.com/tengio/
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+  flutter: ">=0.1.4 <2.0.0"

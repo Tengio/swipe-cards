@@ -1,0 +1,12 @@
+name: swipe_card_example
+description: Example app for the swipe_card package.
+
+dependencies:
+  swipe_card:
+    path: ../
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
