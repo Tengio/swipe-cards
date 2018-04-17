@@ -4,7 +4,6 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-
 /// Swipe card widget. The card can be swiped left or right and animate accordingly.
 ///
 /// See the helper class [CardsDeck] to manage a deck of cards.
@@ -38,9 +37,9 @@ class SwipeCard extends StatefulWidget {
       onSwipe: onSwipe ?? this.onSwipe,
       onAnimationDone: onAnimationDone ?? this.onAnimationDone,
       minDragDistanceToValidate:
-      minDragValueToValidate ?? this.minDragDistanceToValidate,
+          minDragValueToValidate ?? this.minDragDistanceToValidate,
       minDragVelocityToValidate:
-      minDragVelocityToValidate ?? this.minDragVelocityToValidate,
+          minDragVelocityToValidate ?? this.minDragVelocityToValidate,
       animationDistance: animationDistance ?? this.animationDistance,
       maxAnimationDuration: maxAnimationDuration ?? this.maxAnimationDuration,
       rotateCoefficient: rotateCoefficient ?? this.rotateCoefficient,
@@ -113,12 +112,12 @@ class SwipeCardState extends State<SwipeCard>
 
     _animation = new Tween(begin: 0.0, end: widget.animationDistance)
         .animate(_controller)
-      ..addListener(() {
-        _setStateIfValid(() {});
-        if (_animation.value == widget.animationDistance) {
-          if (widget.onAnimationDone != null) widget.onAnimationDone();
-        }
-      });
+          ..addListener(() {
+            _setStateIfValid(() {});
+            if (_animation.value == widget.animationDistance) {
+              if (widget.onAnimationDone != null) widget.onAnimationDone();
+            }
+          });
   }
 
   @override
@@ -132,6 +131,8 @@ class SwipeCardState extends State<SwipeCard>
             ? _computeManualTransformMatrix()
             : _computeAnimatedTransformMatrix(),
         child: widget.child,
+//        origin: Offset.,
+        alignment: Alignment.center,
       ),
     );
   }
@@ -167,14 +168,17 @@ class SwipeCardState extends State<SwipeCard>
 
   Matrix4 _computeManualTransformMatrix() {
     return Matrix4.translationValues(_dragValue, 0.0, 0.0)
-      ..rotateZ(
-          _dragValue * _empiricalRotateCoefficient * widget.rotateCoefficient);
+      ..rotateZ(_dragValue.abs() *
+          _empiricalRotateCoefficient *
+          widget.rotateCoefficient);
   }
 
   Matrix4 _computeAnimatedTransformMatrix() {
-    final double value = _animation.value * _dragValue.sign;
-    return Matrix4.translationValues(value, 0.0, 0.0)
-      ..rotateZ(value * _empiricalRotateCoefficient * widget.rotateCoefficient);
+    return Matrix4.translationValues(
+        _animation.value * _dragValue.sign, 0.0, 0.0)
+      ..rotateZ(_animation.value *
+          _empiricalRotateCoefficient *
+          widget.rotateCoefficient);
   }
 
   Duration _computeAnimationDuration(final double dragVelocity) {
@@ -182,8 +186,8 @@ class SwipeCardState extends State<SwipeCard>
     // Avoid dividing by 0.
     if (dragVelocity.abs() > 1.0) {
       animationDuration = (1000.0 *
-          (widget.animationDistance - _dragValue.abs()) /
-          dragVelocity.abs())
+              (widget.animationDistance - _dragValue.abs()) /
+              dragVelocity.abs())
           .round();
     }
 
@@ -223,7 +227,6 @@ class SwipeCardState extends State<SwipeCard>
     super.dispose();
   }
 }
-
 
 /// Helper class to manage a deck of [SwipeCard].
 class CardsDeck {
