@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="API docs for the createTicker method from the SwipeCardState class, for the Dart programming language.">
+  <title>createTicker method - SwipeCardState class - swipe_card library - Dart API</title>
+  <!-- required because all the links are pseudo-absolute -->
+  <base href="../..">
+
+  <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500,400i,400,300|Source+Sans+Pro:400,300,700" rel="stylesheet">
+  <link rel="stylesheet" href="static-assets/github.css">
+  <link rel="stylesheet" href="static-assets/styles.css">
+  <link rel="icon" href="static-assets/favicon.png">
+
+</head>
+
+<body>
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="index.html">swipe_card</a></li>
+    <li><a href="swipe_card/swipe_card-library.html">swipe_card</a></li>
+    <li><a href="swipe_card/SwipeCardState-class.html">SwipeCardState</a></li>
+    <li class="self-crumb">createTicker method</li>
+  </ol>
+  <div class="self-name">createTicker</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+  <div class="col-xs-6 col-sm-3 col-md-2 sidebar sidebar-offcanvas-left">
+    <h5>SwipeCardState class</h5>
+    <ol>
+      <li class="section-title"><a href="swipe_card/SwipeCardState-class.html#constructors">Constructors</a></li>
+      <li><a href="swipe_card/SwipeCardState/SwipeCardState.html">SwipeCardState</a></li>
+    
+      <li class="section-title inherited">
+        <a href="swipe_card/SwipeCardState-class.html#instance-properties">Properties</a>
+      </li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/context.html">context</a></li>
+      <li class="inherited"><a href="dart-core/Object/hashCode.html">hashCode</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/mounted.html">mounted</a></li>
+      <li class="inherited"><a href="dart-core/Object/runtimeType.html">runtimeType</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/widget.html">widget</a></li>
+    
+      <li class="section-title"><a href="swipe_card/SwipeCardState-class.html#instance-methods">Methods</a></li>
+      <li><a href="swipe_card/SwipeCardState/build.html">build</a></li>
+      <li><a href="swipe_card/SwipeCardState/dispose.html">dispose</a></li>
+      <li><a href="swipe_card/SwipeCardState/initState.html">initState</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/createTicker.html">createTicker</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/deactivate.html">deactivate</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/debugFillProperties.html">debugFillProperties</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/didChangeDependencies.html">didChangeDependencies</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/didUpdateWidget.html">didUpdateWidget</a></li>
+      <li class="inherited"><a href="dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/reassemble.html">reassemble</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/setState.html">setState</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/toDiagnosticsNode.html">toDiagnosticsNode</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/toString.html">toString</a></li>
+      <li class="inherited"><a href="swipe_card/SwipeCardState/toStringShort.html">toStringShort</a></li>
+    
+      <li class="section-title inherited"><a href="swipe_card/SwipeCardState-class.html#operators">Operators</a></li>
+      <li class="inherited"><a href="dart-core/Object/operator_equals.html">operator ==</a></li>
+    
+    
+    
+    </ol>
+  </div><!--/.sidebar-offcanvas-->
+
+  <div class="col-xs-12 col-sm-9 col-md-8 main-content">
+    <h1>createTicker method</h1>
+
+    <section class="multi-line-signature">
+      <div>
+        <ol class="annotation-list">
+          <li>@override</li>
+        </ol>
+      </div>
+      <span class="returntype">Ticker</span>
+      <span class="name ">createTicker</span>
+(<wbr><span class="parameter" id="createTicker-param-onTick"><span class="type-annotation">TickerCallback</span> <span class="parameter-name">onTick</span></span>)
+    </section>
+    <section class="desc markdown">
+      <p>Creates a ticker with the given callback.</p>
+<p>The kind of ticker provided depends on the kind of ticker provider.</p>
+    </section>
+    
+    <section class="summary source-code" id="source">
+      <h2><span>Implementation</span> </h2>
+      <pre class="language-dart"><code class="language-dart">@override
+Ticker createTicker(TickerCallback onTick) {
+  assert(() {
+    if (_ticker == null)
+      return true;
+    throw new FlutterError(
+      &#39;$runtimeType is a SingleTickerProviderStateMixin but multiple tickers were created.\n&#39;
+      &#39;A SingleTickerProviderStateMixin can only be used as a TickerProvider once. If a &#39;
+      &#39;State is used for multiple AnimationController objects, or if it is passed to other &#39;
+      &#39;objects and those objects might use it more than one time in total, then instead of &#39;
+      &#39;mixing in a SingleTickerProviderStateMixin, use a regular TickerProviderStateMixin.&#39;
+    );
+  }());
+  _ticker = new Ticker(onTick, debugLabel: &#39;created by $this&#39;);
+  &#47;&#47; We assume that this is called from initState, build, or some sort of
+  &#47;&#47; event handler, and that thus TickerMode.of(context) would return true. We
+  &#47;&#47; can&#39;t actually check that here because if we&#39;re in initState then we&#39;re
+  &#47;&#47; not allowed to do inheritance checks yet.
+  return _ticker;
+}</code></pre>
+    </section>
+
+  </div> <!-- /.main-content -->
+
+  <div class="col-xs-6 col-sm-6 col-md-2 sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    swipe_card 0.1.0
+  </span>
+
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="static-assets/typeahead.bundle.min.js"></script>
+<script src="static-assets/highlight.pack.js"></script>
+<script src="static-assets/URI.js"></script>
+<script src="static-assets/script.js"></script>
+
+
+</body>
+
+</html>
