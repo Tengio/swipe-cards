@@ -36,10 +36,8 @@ class SwipeCard extends StatefulWidget {
       child: child ?? this.child,
       onSwipe: onSwipe ?? this.onSwipe,
       onAnimationDone: onAnimationDone ?? this.onAnimationDone,
-      minDragDistanceToValidate:
-          minDragValueToValidate ?? this.minDragDistanceToValidate,
-      minDragVelocityToValidate:
-          minDragVelocityToValidate ?? this.minDragVelocityToValidate,
+      minDragDistanceToValidate: minDragValueToValidate ?? this.minDragDistanceToValidate,
+      minDragVelocityToValidate: minDragVelocityToValidate ?? this.minDragVelocityToValidate,
       animationDistance: animationDistance ?? this.animationDistance,
       maxAnimationDuration: maxAnimationDuration ?? this.maxAnimationDuration,
       rotateCoefficient: rotateCoefficient ?? this.rotateCoefficient,
@@ -95,8 +93,7 @@ class SwipeCard extends StatefulWidget {
   createState() => new SwipeCardState();
 }
 
-class SwipeCardState extends State<SwipeCard>
-    with SingleTickerProviderStateMixin {
+class SwipeCardState extends State<SwipeCard> with SingleTickerProviderStateMixin {
   bool _isDisposed = false;
   bool _isDragging = false;
   double _dragValue = 0.0;
@@ -110,14 +107,13 @@ class SwipeCardState extends State<SwipeCard>
     super.initState();
     _controller = new AnimationController(vsync: this);
 
-    _animation = new Tween(begin: 0.0, end: widget.animationDistance)
-        .animate(_controller)
-          ..addListener(() {
-            _setStateIfValid(() {});
-            if (_animation.value == widget.animationDistance) {
-              if (widget.onAnimationDone != null) widget.onAnimationDone();
-            }
-          });
+    _animation = new Tween(begin: 0.0, end: widget.animationDistance).animate(_controller)
+      ..addListener(() {
+        _setStateIfValid(() {});
+        if (_animation.value == widget.animationDistance) {
+          if (widget.onAnimationDone != null) widget.onAnimationDone();
+        }
+      });
   }
 
   @override
@@ -127,9 +123,7 @@ class SwipeCardState extends State<SwipeCard>
       onHorizontalDragUpdate: _handleHorizontalDragUpdate,
       onHorizontalDragEnd: _handleHorizontalDragEnd,
       child: new Transform(
-        transform: _isDragging
-            ? _computeManualTransformMatrix()
-            : _computeAnimatedTransformMatrix(),
+        transform: _isDragging ? _computeManualTransformMatrix() : _computeAnimatedTransformMatrix(),
         child: widget.child,
 //        origin: Offset.,
         alignment: Alignment.center,
@@ -167,40 +161,30 @@ class SwipeCardState extends State<SwipeCard>
   }
 
   Matrix4 _computeManualTransformMatrix() {
-    return Matrix4.translationValues(_dragValue, 0.0, 0.0)
-      ..rotateZ(_dragValue.abs() *
-          _empiricalRotateCoefficient *
-          widget.rotateCoefficient);
+    return new Matrix4.translationValues(_dragValue, 0.0, 0.0)
+      ..rotateZ(_dragValue.abs() * _empiricalRotateCoefficient * widget.rotateCoefficient);
   }
 
   Matrix4 _computeAnimatedTransformMatrix() {
-    return Matrix4.translationValues(
-        _animation.value * _dragValue.sign, 0.0, 0.0)
-      ..rotateZ(_animation.value *
-          _empiricalRotateCoefficient *
-          widget.rotateCoefficient);
+    return new Matrix4.translationValues(_animation.value * _dragValue.sign, 0.0, 0.0)
+      ..rotateZ(_animation.value * _empiricalRotateCoefficient * widget.rotateCoefficient);
   }
 
   Duration _computeAnimationDuration(final double dragVelocity) {
     int animationDuration = 500;
     // Avoid dividing by 0.
     if (dragVelocity.abs() > 1.0) {
-      animationDuration = (1000.0 *
-              (widget.animationDistance - _dragValue.abs()) /
-              dragVelocity.abs())
-          .round();
+      animationDuration = (1000.0 * (widget.animationDistance - _dragValue.abs()) / dragVelocity.abs()).round();
     }
 
     // Make sure the animation is not too slow.
-    animationDuration =
-        math.min(animationDuration, widget.maxAnimationDuration);
+    animationDuration = math.min(animationDuration, widget.maxAnimationDuration);
 
     return new Duration(milliseconds: animationDuration);
   }
 
   void _runAnimation(final double dragVelocity) {
-    final double currentPositionInAnimation =
-        _dragValue.abs() / widget.animationDistance;
+    final double currentPositionInAnimation = _dragValue.abs() / widget.animationDistance;
     _controller.duration = _computeAnimationDuration(dragVelocity);
     if (_validateSwipe(dragVelocity)) {
       _controller.forward(from: currentPositionInAnimation);
@@ -210,8 +194,7 @@ class SwipeCardState extends State<SwipeCard>
   }
 
   bool _validateSwipe(final double dragVelocity) {
-    return _dragValue.abs() >= widget.minDragDistanceToValidate ||
-        dragVelocity.abs() > widget.minDragVelocityToValidate;
+    return _dragValue.abs() >= widget.minDragDistanceToValidate || dragVelocity.abs() > widget.minDragVelocityToValidate;
   }
 
   void _setStateIfValid(VoidCallback callback) {
@@ -238,8 +221,7 @@ class CardsDeck {
   List<SwipeCard> allCards() => _cards;
 
   /// Returns the 2 cards on the top of the deck.
-  List<SwipeCard> topTwoCards() =>
-      _cards.sublist(_cards.length - 2, _cards.length);
+  List<SwipeCard> topTwoCards() => _cards.sublist(_cards.length - 2, _cards.length);
 
   /// Add a card on top of the deck (the top card is the visible one).
   addTop(SwipeCard card) {
@@ -280,8 +262,7 @@ class CardsDeck {
             _disposeCard(newCard);
           });
     } else {
-      newCard =
-          card.copyWith(key: key, onAnimationDone: () => _disposeCard(newCard));
+      newCard = card.copyWith(key: key, onAnimationDone: () => _disposeCard(newCard));
     }
     return newCard;
   }
