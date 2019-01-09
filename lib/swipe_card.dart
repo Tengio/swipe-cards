@@ -123,7 +123,9 @@ class SwipeCardState extends State<SwipeCard> with SingleTickerProviderStateMixi
       onHorizontalDragUpdate: _handleHorizontalDragUpdate,
       onHorizontalDragEnd: _handleHorizontalDragEnd,
       child: new Transform(
-        transform: _isDragging ? _computeManualTransformMatrix() : _computeAnimatedTransformMatrix(),
+        transform: _isDragging
+            ? _computeManualTransformMatrix()
+            : _computeAnimatedTransformMatrix(),
         child: widget.child,
 //        origin: Offset.,
         alignment: Alignment.center,
@@ -174,7 +176,8 @@ class SwipeCardState extends State<SwipeCard> with SingleTickerProviderStateMixi
     int animationDuration = 500;
     // Avoid dividing by 0.
     if (dragVelocity.abs() > 1.0) {
-      animationDuration = (1000.0 * (widget.animationDistance - _dragValue.abs()) / dragVelocity.abs()).round();
+      animationDuration =
+          (1000.0 * (widget.animationDistance - _dragValue.abs()) / dragVelocity.abs()).round();
     }
 
     // Make sure the animation is not too slow.
@@ -194,7 +197,8 @@ class SwipeCardState extends State<SwipeCard> with SingleTickerProviderStateMixi
   }
 
   bool _validateSwipe(final double dragVelocity) {
-    return _dragValue.abs() >= widget.minDragDistanceToValidate || dragVelocity.abs() > widget.minDragVelocityToValidate;
+    return _dragValue.abs() >= widget.minDragDistanceToValidate ||
+        dragVelocity.abs() > widget.minDragVelocityToValidate;
   }
 
   void _setStateIfValid(VoidCallback callback) {
@@ -220,8 +224,9 @@ class CardsDeck {
   /// When building the layout it's usually enough to draw the 2 cards on the top of the deck. See [topTwoCards].
   List<SwipeCard> allCards() => _cards;
 
-  /// Returns the 2 cards on the top of the deck.
-  List<SwipeCard> topTwoCards() => _cards.sublist(_cards.length - 2, _cards.length);
+  /// Returns the 2 cards if available otherwise the existing cards on the top of the deck.
+  List<SwipeCard> topTwoCards() =>
+      _cards.sublist((_cards.length > 1) ? (_cards.length - 2) : 0, _cards.length);
 
   /// Add a card on top of the deck (the top card is the visible one).
   addTop(SwipeCard card) {
